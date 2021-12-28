@@ -42,6 +42,9 @@ function App() {
     <div className="App">
       <button onClick={getW}>Test</button>
       <div>
+        {!status ? <div>Waiting for input</div> : [weatherData.address]}
+      </div>
+      <div>
         {!status ? (
           <div>Waiting for input</div>
         ) : (
