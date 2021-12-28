@@ -42,9 +42,7 @@ function App() {
       .catch((error) => {
         console.error("There was an error!", error);
       });
-    if (weatherData.days[0] !== "") {
-      setStatus(true);
-    }
+
     console.log(weatherData);
   };
 

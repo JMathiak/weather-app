@@ -4,8 +4,9 @@ export default class Forecast extends Component {
   render() {
     return (
       <div>
-        Date: {this.props.data.datetime} Min: {this.props.data.tempmin}, Max:{" "}
-        {this.props.data.tempmax}
+        Date: {this.props.info[this.props.day].datetime} Min:{" "}
+        {this.props.info[this.props.day].tempmin}, Max:{" "}
+        {this.props.info[this.props.day].tempmax}
       </div>
     );
   }
