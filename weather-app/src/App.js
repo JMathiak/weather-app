@@ -7,17 +7,20 @@ function App() {
   let sxAPIKey = process.env.REACT_APP_SND_API_KEY;
   let zip = "75035";
 
-  const [status, setStatus] = useState(false);
+  const [weatherData, setWeatherData] = useState({ loaded: false, data: null });
 
-  const getWeather = () => {
-    fetch(
-      `http://api.openweathermap.org/data/2.5/forecast/daily?zip=${zip},us&appid=${xAPIKey}&cnt=5&units=imperial`
-    )
-      .then((response) => response.json())
-      .then((json) => setWeatherData(json));
-    setStatus("true");
-    console.log(weatherData);
-  };
+  // const getWeather = () => {
+  //   fetch(
+  //     `http://api.openweathermap.org/data/2.5/forecast/daily?zip=${zip},us&appid=${xAPIKey}&cnt=5&units=imperial`
+  //   )
+  //     .then((response) => response.json())
+  //     .then((response) => {
+  //       setWeatherData(response);
+  //       console.log(weatherData);
+  //     });
+  //   setStatus("true");
+  //   console.log(weatherData);
+  // };
 
   const getW = () => {
     fetch(
@@ -27,56 +30,72 @@ function App() {
         headers: {},
       }
     )
-      .then((response) => response.json())
-      .then((json) => setWeatherData(json))
-      .catch((err) => {
-        console.error(err);
+      .then(async (response) => {
+        const data = await response.json();
+        if (!response.ok) {
+          const error = (data && data.message) || response.status;
+          return Promise.reject(error);
+        } else {
+          setWeatherData({ loaded: true, data: data });
+        }
+      })
+      .catch((error) => {
+        console.error("There was an error!", error);
       });
-    console.log(weatherData);
     if (weatherData.days[0] !== "") {
       setStatus(true);
     }
+    console.log(weatherData);
   };
-  const [weatherData, setWeatherData] = useState({});
+
+  const log = () => {
+    console.log(weatherData.days[0]);
+  };
+
   return (
     <div className="App">
       <button onClick={getW}>Test</button>
+      <button onClick={log}> Log</button>
       <div>
-        {!status ? <div>Waiting for input</div> : [weatherData.address]}
-      </div>
-      <div>
-        {!status ? (
+        {!weatherData.loaded ? (
           <div>Waiting for input</div>
         ) : (
-          <Forecast data={weatherData.days[0]} />
+          [weatherData.data.address]
         )}
       </div>
       <div>
-        {!status ? (
+        {!weatherData.loaded ? (
           <div>Waiting for input</div>
         ) : (
-          <Forecast data={weatherData.days[1]} />
+          <Forecast info={weatherData.data.days} day={0} />
         )}
       </div>
       <div>
-        {!status ? (
+        {!weatherData.loaded ? (
           <div>Waiting for input</div>
         ) : (
-          <Forecast data={weatherData.days[2]} />
+          <Forecast info={weatherData.data.days} day={1} />
         )}
       </div>
       <div>
-        {!status ? (
+        {!weatherData.loaded ? (
           <div>Waiting for input</div>
         ) : (
-          <Forecast data={weatherData.days[3]} />
+          <Forecast info={weatherData.data.days} day={2} />
         )}
       </div>
       <div>
-        {!status ? (
+        {!weatherData.loaded ? (
           <div>Waiting for input</div>
         ) : (
-          <Forecast data={weatherData.days[4]} />
+          <Forecast info={weatherData.data.days} day={3} />
+        )}
+      </div>
+      <div>
+        {!weatherData.loaded ? (
+          <div>Waiting for input</div>
+        ) : (
+          <Forecast info={weatherData.data.days} day={4} />
         )}
       </div>
     </div>
