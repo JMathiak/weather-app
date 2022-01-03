@@ -12,7 +12,7 @@ export default class Forecast extends Component {
   render() {
     return (
       <div className="daily">
-        <Card variant="outlined">
+        <Card variant="outlined" className="card">
           {this.props.info[this.props.day].datetime}
           <br></br>
           {this.props.info[this.props.day].icon === "rain" ? (

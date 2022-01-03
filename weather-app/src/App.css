@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  padding-top: 50px;
 }
 
 .App-logo {
@@ -27,7 +28,13 @@
 .App-link {
   color: #61dafb;
 }
-
+.form {
+  gap: 10px;
+  display: flex;
+  justify-content: center;
+}
+.input {
+}
 .Weather-Row {
   display: flex;
   flex-direction: row;

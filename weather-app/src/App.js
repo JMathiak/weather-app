@@ -2,6 +2,7 @@ import logo from "./logo.svg";
 import "./App.css";
 import React, { Component, useEffect, useState } from "react";
 import Forecast from "./Components/Forecast";
+import { TextField, Button } from "@mui/material";
 function App() {
   let xAPIKey = process.env.REACT_APP_API_KEY;
   let sxAPIKey = process.env.REACT_APP_SND_API_KEY;
@@ -54,41 +55,40 @@ function App() {
 
   return (
     <div className="App">
-      <form>
-        <label>
-          City:
-          <input
-            type="text"
-            onChange={(e) => {
-              setCity(e.target.value);
-            }}
-          />
-          State:
-          <input
-            type="text"
-            onChange={(e) => {
-              setSt(e.target.value);
-            }}
-          />
-        </label>
-        <input
-          type="submit"
-          value="Submit"
+      <form className="form">
+        <TextField
+          required
+          label="City"
+          onChange={(e) => {
+            setCity(e.target.value);
+          }}
+        />
+        <TextField
+          required
+          label="State (2 Letter Code)"
+          onChange={(e) => {
+            setSt(e.target.value);
+          }}
+        />
+
+        <Button
+          variant="contained"
           onClick={(e) => {
             e.preventDefault();
             getW();
           }}
-        />
+        >
+          Submit{" "}
+        </Button>
+        <button onClick={log}> Log</button>
       </form>
-      <button onClick={getW}>Test</button>
-      <button onClick={log}> Log</button>
 
       <div>
         {!weatherData.loaded ? (
           <div>Waiting for input</div>
         ) : (
           [
-            <div>Showing Weather for : {weatherData.data.resolvedAddress}</div>,
+            <div>Showing Weather for: {weatherData.data.resolvedAddress}</div>,
             <div className="Weather-Row">
               <Forecast info={weatherData.data.days} day={0} />
               <Forecast info={weatherData.data.days} day={1} />
