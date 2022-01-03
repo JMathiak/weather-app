@@ -8,6 +8,8 @@ function App() {
   let zip = "75035";
 
   const [weatherData, setWeatherData] = useState({ loaded: false, data: null });
+  const [state, setSt] = useState("Tx");
+  const [city, setCity] = useState("Dallas");
 
   // const getWeather = () => {
   //   fetch(
@@ -24,7 +26,7 @@ function App() {
 
   const getW = () => {
     fetch(
-      `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/Dallas%2CTx/next7days?unitGroup=us&include=days&key=${sxAPIKey}&contentType=json`,
+      `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}%2C${state}/next7days?unitGroup=us&include=days&key=${sxAPIKey}&contentType=json`,
       {
         method: "GET",
         headers: {},
@@ -47,25 +49,46 @@ function App() {
   };
 
   const log = () => {
-    console.log(weatherData.days[0]);
+    console.log(weatherData);
   };
 
   return (
     <div className="App">
+      <form>
+        <label>
+          City:
+          <input
+            type="text"
+            onChange={(e) => {
+              setCity(e.target.value);
+            }}
+          />
+          State:
+          <input
+            type="text"
+            onChange={(e) => {
+              setSt(e.target.value);
+            }}
+          />
+        </label>
+        <input
+          type="submit"
+          value="Submit"
+          onClick={(e) => {
+            e.preventDefault();
+            getW();
+          }}
+        />
+      </form>
       <button onClick={getW}>Test</button>
       <button onClick={log}> Log</button>
-      <div>
-        {!weatherData.loaded ? (
-          <div>Waiting for input</div>
-        ) : (
-          [weatherData.data.address]
-        )}
-      </div>
+
       <div>
         {!weatherData.loaded ? (
           <div>Waiting for input</div>
         ) : (
           [
+            <div>Showing Weather for : {weatherData.data.resolvedAddress}</div>,
             <div className="Weather-Row">
               <Forecast info={weatherData.data.days} day={0} />
               <Forecast info={weatherData.data.days} day={1} />
