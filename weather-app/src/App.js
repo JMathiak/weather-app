@@ -2,7 +2,7 @@ import logo from "./logo.svg";
 import "./App.css";
 import React, { Component, useEffect, useState } from "react";
 import Forecast from "./Components/Forecast";
-import { TextField, Button, Card } from "@mui/material";
+import { TextField, Button, Card, Grid } from "@mui/material";
 function App() {
   let xAPIKey = process.env.REACT_APP_API_KEY;
   let sxAPIKey = process.env.REACT_APP_SND_API_KEY;
@@ -85,19 +85,34 @@ function App() {
 
       <div>
         {!weatherData.loaded ? (
-          <div className="cityContainer">
+          <Grid
+            container
+            spacing={0}
+            direction="column"
+            alignItems="center"
+            justify="center"
+            style={{ minHeight: "100vh" }}
+          >
             <Card className="city">
               Showing 5 Day Forecast for: <br></br>
             </Card>
-          </div>
+          </Grid>
         ) : (
           [
-            <div className="cityContainer">
-              <Card className="city">
-                Showing 5 Day Forecast for: <br></br>
-                {weatherData.data.resolvedAddress}
-              </Card>
-            </div>,
+            <Grid
+              container
+              spacing={0}
+              direction="column"
+              alignItems="center"
+              justify="center"
+            >
+              <Grid item xs={3}>
+                <Card className="city">
+                  Showing 5 Day Forecast for: <br></br>{" "}
+                  {weatherData.data.resolvedAddress}
+                </Card>
+              </Grid>
+            </Grid>,
             <div className="Weather-Row">
               <Forecast info={weatherData.data.days} day={0} />
               <Forecast info={weatherData.data.days} day={1} />
