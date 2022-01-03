@@ -33,7 +33,15 @@
   display: flex;
   justify-content: center;
 }
-.input {
+.city {
+  max-width: 300px;
+  justify-content: center;
+  margin-left: 800px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.cityContainer {
+  justify-content: center;
 }
 .Weather-Row {
   display: flex;
