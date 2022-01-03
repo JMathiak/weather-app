@@ -66,11 +66,13 @@ function App() {
           <div>Waiting for input</div>
         ) : (
           [
-            <Forecast info={weatherData.data.days} day={0} />,
-            <Forecast info={weatherData.data.days} day={1} />,
-            <Forecast info={weatherData.data.days} day={2} />,
-            <Forecast info={weatherData.data.days} day={3} />,
-            <Forecast info={weatherData.data.days} day={4} />,
+            <div className="Weather-Row">
+              <Forecast info={weatherData.data.days} day={0} />
+              <Forecast info={weatherData.data.days} day={1} />
+              <Forecast info={weatherData.data.days} day={2} />
+              <Forecast info={weatherData.data.days} day={3} />
+              <Forecast info={weatherData.data.days} day={4} />
+            </div>,
           ]
         )}
       </div>
