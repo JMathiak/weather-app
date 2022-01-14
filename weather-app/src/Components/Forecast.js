@@ -5,6 +5,7 @@ import {
   WiNightPartlyCloudy,
   WiDaySunny,
   WiSnow,
+  WiWindy,
 } from "weather-icons-react";
 import Card from "@mui/material/Card";
 
@@ -26,6 +27,9 @@ export default class Forecast extends Component {
           ) : null}
           {this.props.info[this.props.day].icon === "snow" ? (
             <WiSnow size={30} color="#000" />
+          ) : null}
+          {this.props.info[this.props.day].icon === "wind" ? (
+            <WiWindy size={30} color="#000" />
           ) : null}
           <br></br>
           {this.props.info[this.props.day].conditions}

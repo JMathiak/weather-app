@@ -44,6 +44,7 @@ function App() {
       })
       .catch((error) => {
         console.error("There was an error!", error);
+        alert("Please enter a valid city and 2 letter state code");
       });
 
     console.log(weatherData);
